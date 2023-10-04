@@ -30,10 +30,13 @@ public class Drawing {
      */
     public void draw(String format, String filename) {
         // TODO: Do you notice any issues here?
+        // issue is this behavior is essentially duplicated, this can be addressed by factoring out this entire
+        // block into a method with a string for file extension input
         if (format.equals("jpeg")) {
             try (Writer writer = new JPEGWriter(filename + ".jpeg")) {
                 for (Shape shape : this.shapes) {
                     // TODO: What is the issue of the behavior here?
+                    // shape.toLines() should be called inside shape.draw, not before.
                     Line[] lines = shape.toLines();
                     shape.draw(writer, lines);
                 }
